@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Filter from './Filter';
 import PersonForm from './PersonForm';
 import Persons from './Persons';
+import Notification from './Notification'
 
 import personService from '../services/person'
 
@@ -10,6 +11,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ filter, setFilter ] = useState('');
+  const [ errorMessage, setErrorMessage ] = useState(null)
+  const [ message, setMessage ] = useState(null)
 
   useEffect(() => {
     personService
@@ -36,8 +39,21 @@ const App = () => {
     const updatedPerson = { ...person, number: newNumber }
     personService
       .update(updatedPerson.id, updatedPerson)
-      .then(response =>
-        setPersons(persons.map(p => p.id !== response.id ? p : updatedPerson)))
+      .then(response => {
+        setPersons(persons.map(p => p.id !== response.id ? p : updatedPerson))
+        setMessage(
+          `Person '${updatedPerson.name}' was updated`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)})
+      .catch(err => {
+        setErrorMessage(
+          `Person '${updatedPerson.name}' was already deleted`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)})
   }
 
   const addPerson = (event) => {
@@ -56,6 +72,12 @@ const App = () => {
         .then(response => {
           setPersons(persons.concat(response))
       })
+      setMessage(
+        `Person '${newPerson.name}' was added`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
   }
 
@@ -70,12 +92,21 @@ const App = () => {
     personService
       .remove(event.target.value, event.target.name)
     setPersons(persons.filter(p => p.id !== +id))
+    setMessage(
+      `Person '${name}' was removed`
+    )
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
   }
 
 
   return (
     <div>
       <h2>Phonebook</h2>
+
+      {errorMessage ? <Notification message={errorMessage} className={"error"} /> : null}
+      {message ? <Notification message={message} className={"success"} /> : null}
 
       <Filter handleFilterChange={handleFilterChange} filter={filter} />
 
