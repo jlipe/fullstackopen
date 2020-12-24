@@ -5,9 +5,12 @@ const Persons = (props) => {
   ? props.persons.filter(person => person.name.toLowerCase().includes(props.filter.toLowerCase()))
   : props.persons
   return(
-    people.map((person, i) => {
+    people.map((person) => {
       return(
-        <p key={person.name}>{person.name} {person.number}</p>
+        <div key={person.id}>
+          {person.name} {person.number}
+          <button value={person.id} name={person.name} onClick={props.buttonDelete}>Delete</button>
+        </div>
       );
     })
   );

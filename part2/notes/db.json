@@ -13,7 +13,56 @@
       "postId": 1
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "content": "jaems",
+      "date": "2020-12-24T15:34:40.520Z",
+      "important": true,
+      "id": 1
+    },
+    {
+      "content": "cats",
+      "date": "2020-12-24T15:34:43.521Z",
+      "important": true,
+      "id": 2
+    },
+    {
+      "content": "jinlge",
+      "date": "2020-12-24T15:34:46.892Z",
+      "important": true,
+      "id": 3
+    },
+    {
+      "content": "ge",
+      "date": "2020-12-24T15:34:48.139Z",
+      "important": true,
+      "id": 4
+    },
+    {
+      "content": "ges",
+      "date": "2020-12-24T15:34:49.266Z",
+      "important": true,
+      "id": 5
+    },
+    {
+      "content": "seg",
+      "date": "2020-12-24T15:34:50.539Z",
+      "important": false,
+      "id": 6
+    },
+    {
+      "content": "sefes",
+      "date": "2020-12-24T15:34:52.943Z",
+      "important": false,
+      "id": 7
+    },
+    {
+      "content": "sef",
+      "date": "2020-12-24T15:34:54.306Z",
+      "important": true,
+      "id": 8
+    }
+  ],
   "profile": {
     "name": "typicode"
   }
