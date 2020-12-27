@@ -47,9 +47,9 @@ const App = () => {
         setTimeout(() => {
           setMessage(null)
         }, 5000)})
-      .catch(err => {
+      .catch(error => {
         setErrorMessage(
-          `Person '${updatedPerson.name}' was already deleted`
+          `${error.response.data.error}`
         )
         setTimeout(() => {
           setErrorMessage(null)
@@ -71,13 +71,21 @@ const App = () => {
         .create(newPerson)
         .then(response => {
           setPersons(persons.concat(response))
+          setMessage(
+            `Person '${newPerson.name}' was added`
+          )
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
+      .catch(error => {
+        setErrorMessage(
+          `${error.response.data.error}`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
-      setMessage(
-        `Person '${newPerson.name}' was added`
-      )
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
     }
   }
 
@@ -90,8 +98,8 @@ const App = () => {
       return
     }
     personService
-      .remove(event.target.value, event.target.name)
-    setPersons(persons.filter(p => p.id !== +id))
+      .remove(id, name)
+    setPersons(persons.filter(p => p.id !== id))
     setMessage(
       `Person '${name}' was removed`
     )
