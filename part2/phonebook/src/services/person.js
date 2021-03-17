@@ -22,4 +22,6 @@ const remove = (id, name) => {
     return request.then(response => response.data)
 }
 
-export default { getAll, create, update, remove }
+const to_export = { getAll, create, update, remove }
+
+export default to_export

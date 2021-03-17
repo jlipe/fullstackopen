@@ -44,6 +44,8 @@ const App = () => {
         setMessage(
           `Person '${updatedPerson.name}' was updated`
         )
+        setNewName('')
+        setNewNumber('')
         setTimeout(() => {
           setMessage(null)
         }, 5000)})
@@ -58,22 +60,31 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
+    const inputs = event.target.querySelectorAll('input')
     if (persons.map(v => v.name).includes(newName)){
       const response = window.confirm(`${newName} is already in the phone book, replace old number?`)
       if (!response) {
         return
       } else {
         updatePerson(persons.find(p => p.name === newName).id)
+        for (let i of inputs) {
+          i.value = ""
+        }
       }
     } else {
       const newPerson = { name: newName, number: newNumber}
       personService
         .create(newPerson)
         .then(response => {
+          for (let i of inputs) {
+            i.value = ""
+          }
           setPersons(persons.concat(response))
           setMessage(
             `Person '${newPerson.name}' was added`
           )
+          setNewName('')
+          setNewNumber('')
           setTimeout(() => {
             setMessage(null)
           }, 5000)
@@ -110,7 +121,7 @@ const App = () => {
 
 
   return (
-    <div>
+    <div className="container">
       <h2>Phonebook</h2>
 
       {errorMessage ? <Notification message={errorMessage} className={"error"} /> : null}
@@ -118,16 +129,13 @@ const App = () => {
 
       <Filter handleFilterChange={handleFilterChange} filter={filter} />
 
-      <h2>Add a New</h2>
-
       <PersonForm
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
+        name={newName}
+        number={newNumber}
         addPerson={addPerson}
       />
-
-      <h2>Numbers</h2>
-
       {persons 
       ? <Persons persons={persons} filter={filter} buttonDelete={deletePerson}></Persons>
       : null}

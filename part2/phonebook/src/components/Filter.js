@@ -1,9 +1,13 @@
 import React from 'react';
+import { InputGroup, FormControl } from 'react-bootstrap'
 
 const Filter = (props) => {
   return(
     <div>
-      filter shown with <input onChange={props.handleFilterChange} value={props.filter} />
+      <label htmlFor="filter">Filter shown with:</label>
+      <InputGroup className="mb-3">
+        <FormControl id="filter" onChange={props.handleFilterChange} value={props.filter} />
+      </InputGroup>
     </div>
   );
 }
